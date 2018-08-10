@@ -88,8 +88,54 @@ function loginUser(req, res) {
     });
 }
 
+// Método par actualizar los datos de usuario
+function updateUser (req, res) {
+    var userId = req.params.id;
+    var params = req.body;
+    var update = req.body;
+
+    // Si me viene la contraseña por body para actualizar
+    // ESTO NO FUNCIONA BIEN!!
+    if(params.password) {
+        // Actualizo el hash
+        bcrypt.hash(params.password, null, null, function(error, hash) {
+            update.password = hash;
+            console.log('Contraseña cambiada: '+update.password);
+        });
+    }
+
+    User.findByIdAndUpdate(userId, update, (err, userUpdated) =>{
+        if(err) {
+            res.status(500).send({message: 'Error al actualizar el usuario'});
+        }else{
+            if(!userUpdated){
+                res.status(404).send({message: 'No ha podido actualizarse el usuario'});
+            }else{
+                // Si se actualiza correctamente envio el user actualizado
+                res.status(200).send({user: userUpdated});
+                console.log('Usuario actualizado: '+update.password);
+            }
+        }
+    });
+}
+
+function uploadImage (req, res) {
+    var userId = req.params.id;
+    var filename = 'Null'
+
+    if(req.files) {
+        var filepath = req.files.image.path;
+        console.log(filepath);
+        res.status(200).send({message: 'Image uploaded succesfully'})
+    }else{
+        es.status(500).send({message: 'No se ha subido ninguna imagen'});
+    }
+}
+
 module.exports = {
     pruebas,
     saveUser,
-    loginUser
+    loginUser,
+    updateUser,
+    uploadImage
 };
