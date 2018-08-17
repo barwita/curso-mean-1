@@ -2,7 +2,10 @@
 
 var bcrypt = require('bcrypt-nodejs'); // Cargamos el módulo de bcrypt para encriptar contraseñas
 var User = require('../models/user'); // Cargamos el módulo del módelo de la BBDD
-var jwt = require('../services/jwt')
+var jwt = require('../services/jwt');
+
+var fs = require('fs');
+var path = require('path');
 
 function pruebas(req, res) {
     res.status(200).send({
@@ -132,10 +135,24 @@ function uploadImage (req, res) {
     }
 }
 
+function getImageFile (req,res) {
+    var imageFile = req.params.imageFile; // Nombre del archivo que quiero sacar, llega por url
+    var path_file = './uploads/users/'+imageFile;
+
+    fs.exists(path_file, function(exist){
+        if(exist){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(404).send({message: 'No existe la imagen'});
+        }
+    });
+}
+
 module.exports = {
     pruebas,
     saveUser,
     loginUser,
     updateUser,
-    uploadImage
+    uploadImage,
+    getImageFile
 };
