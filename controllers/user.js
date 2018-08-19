@@ -127,9 +127,30 @@ function uploadImage (req, res) {
     var filename = 'Null'
 
     if(req.files) {
-        var filepath = req.files.image.path;
-        console.log(filepath);
-        res.status(200).send({message: 'Image uploaded succesfully'})
+        var file_path = req.files.image.path;
+        var file_split = file_path.split('\/');
+        var file_name = file_split[2];
+
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
+
+        //console.log(file_split);
+
+        if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
+            User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) => {
+                if(err){
+                    res.status(500).send({message: 'Error al actualizar el usuario'});
+                }else{
+                    if(!userUpdated){
+                        res.status(404).send({message: 'No se ha actualizado el usuario'});
+                    }else{
+                        res.status(200).send({user: userUpdated});
+                    }
+                }
+            });
+        }else{
+            res.status(500).send({message: 'Extensión no valida'})
+        }
     }else{
         es.status(500).send({message: 'No se ha subido ninguna imagen'});
     }

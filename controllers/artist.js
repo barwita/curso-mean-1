@@ -139,16 +139,50 @@ function deleteArtist(req, res){
 }
 
 function uploadImage (req, res) {
-    var userId = req.params.id;
+    var artistId = req.params.id;
     var filename = 'Null'
 
     if(req.files) {
-        var filepath = req.files.image.path;
-        console.log(filepath);
-        res.status(200).send({message: 'Image uploaded succesfully'})
+        var file_path = req.files.image.path;
+        var file_split = file_path.split('\/');
+        var file_name = file_split[2];
+
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
+
+        //console.log(file_split);
+
+        if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
+            User.findByIdAndUpdate(artistId, {image: file_name}, (err, artistUpdated) => {
+                if(err){
+                    res.status(500).send({message: 'Error al actualizar el artista'});
+                }else{
+                    if(!artistUpdated){
+                        res.status(404).send({message: 'No se ha actualizado el artista'});
+                    }else{
+                        res.status(200).send({artist: artistUpdated});
+                    }
+                }
+            });
+        }else{
+            res.status(500).send({message: 'Extensión no valida'})
+        }
     }else{
         es.status(500).send({message: 'No se ha subido ninguna imagen'});
     }
+}
+
+function getImageFile (req,res) {
+    var imageFile = req.params.imageFile; // Nombre del archivo que quiero sacar, llega por url
+    var path_file = './uploads/users/'+imageFile;
+
+    fs.exists(path_file, function(exist){
+        if(exist){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(404).send({message: 'No existe la imagen'});
+        }
+    });
 }
 
 function getImageFile (req,res) {
