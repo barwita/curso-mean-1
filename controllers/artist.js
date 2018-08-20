@@ -153,7 +153,7 @@ function uploadImage (req, res) {
         //console.log(file_split);
 
         if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
-            User.findByIdAndUpdate(artistId, {image: file_name}, (err, artistUpdated) => {
+            Artist.findByIdAndUpdate(artistId, {image: file_name}, (err, artistUpdated) => {
                 if(err){
                     res.status(500).send({message: 'Error al actualizar el artista'});
                 }else{
@@ -170,19 +170,6 @@ function uploadImage (req, res) {
     }else{
         es.status(500).send({message: 'No se ha subido ninguna imagen'});
     }
-}
-
-function getImageFile (req,res) {
-    var imageFile = req.params.imageFile; // Nombre del archivo que quiero sacar, llega por url
-    var path_file = './uploads/users/'+imageFile;
-
-    fs.exists(path_file, function(exist){
-        if(exist){
-            res.sendFile(path.resolve(path_file));
-        }else{
-            res.status(404).send({message: 'No existe la imagen'});
-        }
-    });
 }
 
 function getImageFile (req,res) {
