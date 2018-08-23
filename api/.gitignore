@@ -1,0 +1,8 @@
+# dependencies
+/node_modules
+
+# Uploads archives
+*.jpeg
+*.jpg
+*.png
+*.mp3
