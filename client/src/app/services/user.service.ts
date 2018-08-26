@@ -35,6 +35,18 @@ export class UserService{
                          .map(res => res.json());
     }
 
+    updateUser(user_to_update){
+        let params = JSON.stringify(user_to_update); // Le paso los parametros como string
+
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': this.getToken()
+        });
+
+        return this._http.put(this.url+'update-user/'+user_to_update._id, params, {headers: headers})
+                         .map(res => res.json());
+    }
+
     getIdentity() {
         let identity = JSON.parse(localStorage.getItem('identity'));
         
@@ -43,6 +55,7 @@ export class UserService{
         }else{
             this.identity = null;
         }
+        return identity;
     }
 
     getToken() {
@@ -53,5 +66,6 @@ export class UserService{
         } else {
             this.token = null;
         }
+        return token;
     }
 }

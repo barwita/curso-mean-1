@@ -99,13 +99,17 @@ function updateUser (req, res) {
 
     // Si me viene la contraseña por body para actualizar
     // ESTO NO FUNCIONA BIEN!!
-    if(params.password) {
+/*  if(params.password) {
         // Actualizo el hash
         bcrypt.hash(params.password, null, null, function(error, hash) {
             update.password = hash;
             console.log('Contraseña cambiada: '+update.password);
         });
     }
+*/
+    if (userId != req.user.sub) {
+        return res.status(500).send({message: 'No tienes permisos para actualizar el usuario'});
+    }    
 
     User.findByIdAndUpdate(userId, update, (err, userUpdated) =>{
         if(err) {
@@ -116,7 +120,7 @@ function updateUser (req, res) {
             }else{
                 // Si se actualiza correctamente envio el user actualizado
                 res.status(200).send({user: userUpdated});
-                console.log('Usuario actualizado: '+update.password);
+                //console.log('Usuario actualizado: '+update.password);
             }
         }
     });

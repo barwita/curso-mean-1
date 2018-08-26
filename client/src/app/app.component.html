@@ -3,19 +3,40 @@
   <h1>
     {{ title }}!
   </h1>
-  <span>
-    {{identity.name}}
-    {{identity.surname}}
-  </span>
-  <span class="btn btn-warning" (click)=logout()>
-    Cerrar sesión
-  </span>
+  <nav id="navigation">
+      <a href="#">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          Buscar
+      </a>
+      <a href="#">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          Artistas
+      </a>
+      <a href="#">
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+          Albums
+      </a>
+
+  </nav>
+  <nav id="user_logged">
+    <span id="identity_name">
+      <p>{{identity.name}}</p>
+    </span>
+    <span class="btn btn-warning" (click)=logout()>
+        Cerrar sesión
+    </span>
+    <a [routerLink]="['misdatos']">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      Mis datos
+    </a>
+  </nav>
 </div>
 
 <div class="clearfix"></div>
 
 <div *ngIf="identity" class="central col-lg-11">
   <p>Estás logueado en la aplicación</p>
+  <router-outlet></router-outlet>
 </div>
 
 <div class="col-lg-12" *ngIf="!identity">

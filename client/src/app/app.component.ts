@@ -67,7 +67,8 @@ export class AppComponent implements OnInit{
                 
                 console.log(this.token);
                 console.log(this.identity);
-
+                
+                // Vacio el usuario
                 this.user = new User('', '', '', '', '', 'ROLE_USER', '');
               }
             },
