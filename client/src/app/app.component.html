@@ -44,24 +44,42 @@
   </div>
   <div class="col-lg-6">
     <h1>Registrate</h1>
-    <form class="col-md-7">
+    <form #registerForm="ngForm" (ngSubmit)=onSubmitRegister() class="col-md-7">
       <p>
         <label>Nombre:</label>
-        <input type="text" class="form-control" required />
+        <input type="text" #name="ngModel" name="name" [(ngModel)]="userRegister.name" class="form-control" required />
       </p>
+      <span *ngIf="!name.valid && name.touched">
+        El nombre es obligatorio
+      </span>
       <p>
           <label>Apellidos:</label>
-          <input type="text" class="form-control" required />
+          <input type="text" #surname="ngModel" name="surname" [(ngModel)]="userRegister.surname" class="form-control" required />
       </p>
+      <span *ngIf="!surname.valid && surname.touched">
+        El apellido es obligatorio
+      </span>
       <p>
         <label>Correo electrónico:</label>
-        <input type="text" class="form-control" required />
+        <input type="email" #email_register="ngModel" name="email_register" [(ngModel)]="userRegister.email" class="form-control" required />
       </p>
+      <span *ngIf="!email_register.valid && email_register.touched">
+        El email es obligatorio
+      </span>
       <p>
         <label>Contraseña:</label>
-        <input type="password" class="form-control" required />
+        <input type="password" #password="ngModel" name="password" [(ngModel)]="userRegister.password" class="form-control" required />
       </p>
+      <span *ngIf="!password.valid && password.touched">
+        La contraseña es obligatoria
+      </span>
       <input type="submit" value="Registrarse" class="btn btn-primary" />
+      <div *ngIf="alertRegister">
+        <br>
+        <div class="alert alert-danger" role="alert">
+          <p>{{alertRegister}}</p>
+        </div>
+      </div>
     </form>
   </div>
 </div>

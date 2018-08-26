@@ -10,15 +10,18 @@ import { User } from './models/user'
 export class AppComponent implements OnInit{
   public title = 'MUSIFY';
   public user: User;
+  public userRegister: User;
   public identity;
   public token; // identity y token irán en el local storage
   public errorMessage;
+  public alertRegister;
 
   constructor(
     private _userService: UserService
   ){
     // Asignamos un valor a una propiedad de una clase
     this.user = new User('', '', '', '', '', 'ROLE_USER', '');
+    this.userRegister = new User('', '', '', '', '', 'ROLE_USER', '');
   }
 
   ngOnInit(){
@@ -64,6 +67,8 @@ export class AppComponent implements OnInit{
                 
                 console.log(this.token);
                 console.log(this.identity);
+
+                this.user = new User('', '', '', '', '', 'ROLE_USER', '');
               }
             },
               error => {
@@ -93,11 +98,38 @@ export class AppComponent implements OnInit{
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('identity');
+    localStorage.clear();
 
     this.identity = null;
     this.token = null;
   }
 
+  onSubmitRegister(){
+    console.log(this.userRegister);
+
+    this._userService.register(this.userRegister).subscribe(
+      response => {
+        let user = response.user;
+        this.userRegister = user;
+
+        if (!user._id) {
+          this.alertRegister = 'Error al registrarse';
+        }else{
+          this.alertRegister = 'El registro se ha realizado correctamente. Identificate con '+this.userRegister.email;
+          this.userRegister = new User('', '', '', '', '', 'ROLE_USER', '');
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          this.alertRegister = body.message;
+          console.log(error);
+        }
+      }
+    );
+  }
+  
+
 }
-
-
