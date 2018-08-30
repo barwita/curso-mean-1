@@ -19,15 +19,26 @@
       </span>
       <p>
         <label>Correo electrónico:</label>
-        <input type="email" #email="ngModel" name="email_register" [(ngModel)]="user.email" class="form-control"
-          required />
+        <input type="email" #email="ngModel" name="email_register" [(ngModel)]="user.email" class="form-control" required />
       </p>
       <span *ngIf="!email.valid && email.touched">
         El email es obligatorio
       </span>
-      <input type="submit" value="Actualizar mis datos" class="btn btn-primary" />
+
+      <div class="image_for_edit" *ngIf="user.image && user.image != 'null'">
+        <img src="{{url + 'get-image-user/' + user.image}}" alt="" style="width: 100px" />
+      </div>
+
+      <p>
+        <label>Sube tu foto:</label>
+        <input type="file" name="" id="" placeholder="Seleccionar archivo" (change)="fileChangeEvent($event)" />
+        <br />
+      </p>
+      <span>
+        <input type="submit" value="Actualizar mis datos" class="btn btn-primary" />
+      </span>
       <div *ngIf="alertMessage">
-        <br>
+        <br />
         <div class="alert alert-danger" role="alert">
           <p>{{alertMessage}}</p>
         </div>

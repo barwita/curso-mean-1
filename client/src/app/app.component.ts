@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from './models/user'
+import { GLOBAL } from './services/global';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,13 @@ export class AppComponent implements OnInit{
   public token; // identity y token irán en el local storage
   public errorMessage;
   public alertRegister;
+  public url: string;
 
   constructor(
     private _userService: UserService
   ){
+    this.url = GLOBAL.url;
+
     // Asignamos un valor a una propiedad de una clase
     this.user = new User('', '', '', '', '', 'ROLE_USER', '');
     this.userRegister = new User('', '', '', '', '', 'ROLE_USER', '');
