@@ -64,3 +64,8 @@ html, body{
 #user_logged .user-image img{
     width: 57px;
 }
+
+.actived{
+    border-bottom: 4px solid #84BD00;
+    padding-bottom: 4px;
+}
