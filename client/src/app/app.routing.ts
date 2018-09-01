@@ -1,6 +1,9 @@
 import { ModuleWithProviders } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 
+// Importar home
+import { HomeComponent } from './components/home.component';
+
 // Importar componentes de usuario
 import { UserEditComponent } from './components/user-edit.component';
 
@@ -8,14 +11,10 @@ import { UserEditComponent } from './components/user-edit.component';
 import { ArtistListComponent } from './components/artist-list.component';
 
 const appRoutes: Routes = [
-    {
-        path: '', 
-        redirectTo: '/artists/1',
-        pathMatch: 'full'
-    },
+    {path: '', component: HomeComponent},
     {path: 'misdatos', component: UserEditComponent},
     {path: 'artists/:page', component: ArtistListComponent},
-    {path: '**', component: ArtistListComponent},
+    {path: '**', component: ArtistListComponent}
 ];
 
 export const AppRoutingProviders: any[] = [];
