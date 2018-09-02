@@ -50,7 +50,7 @@ function getArtist(req, res){
             if(!artist){
                 res.status(404).send({message: 'El artista no existe'});
             }else{
-                res.status(200).send(artist);
+                res.status(200).send({artist: artist});
             }
         }
     });
@@ -93,7 +93,7 @@ function updateArtist(req, res){
             if(!artistUpdated){
                 res.status(404).send({message: 'El artista no ha sido actualizado'});
             }else{
-                res.status(200).send({artistUpdated});
+                res.status(200).send({artist: artistUpdated});
             }
         }
     });

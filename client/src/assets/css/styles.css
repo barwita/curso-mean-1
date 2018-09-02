@@ -69,3 +69,8 @@ html, body{
     border-bottom: 4px solid #84BD00;
     padding-bottom: 4px;
 }
+
+.admin-message{
+    font-style: italic;
+    color: #b2bd99;
+}
