@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { UserService } from '../services/user.service';
 import { ArtistService } from '../services/artist.service'
+import { UploadService } from '../services/upload.service';
 import { GLOBAL } from '../services/global';
 import { Artist } from '../models/artist';
 
@@ -11,7 +12,8 @@ import { Artist } from '../models/artist';
     templateUrl: '../views/artist-add.html',
     providers: [
         UserService,
-        ArtistService
+        ArtistService,
+        UploadService
     ]
 })
 
@@ -24,12 +26,14 @@ export class ArtistEditComponent implements OnInit {
     public alertMessage: string;
     public is_edit;
     public artist_id_to_edit: string;
+    public files_to_upload: Array<File>;
 
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
-        private _artistService: ArtistService
+        private _artistService: ArtistService,
+        private _uploadService: UploadService
     ) {
         this.titulo = 'Editar artista';
         this.identity = this._userService.getIdentity();
@@ -37,7 +41,7 @@ export class ArtistEditComponent implements OnInit {
         this.url = GLOBAL.url;
         this.artist = new Artist('', '', '');
         this.is_edit = true;
-        
+
     }
 
     ngOnInit() {
@@ -74,13 +78,30 @@ export class ArtistEditComponent implements OnInit {
     onSubmit() {
         console.log(this.artist);
 
-        this._artistService.editArtist(this.token,  this.artist_id_to_edit, this.artist).subscribe(
+        this._artistService.editArtist(this.token, this.artist_id_to_edit, this.artist).subscribe(
             response => {
                 if (!response.artist) {
                     this.alertMessage = 'Error en el servidor';
                 } else {
                     this.alertMessage = 'El artista se ha editado correctamente';
-                    //this._router.navigate(['./edit-artist'], response.artist._id);
+
+                    // Subir la imagen del artista
+                    this._uploadService.makeFileRequest(this.url + 'upload-image-artist/' + this.artist_id_to_edit, [], this.files_to_upload, this.token, 'image')
+                        .then(
+                            (result) => {
+                                this._router.navigate(['./artists/1']);
+                            },
+                            (error) => {
+                                var alertMessage = <any>error;
+                                if (alertMessage != null) {
+                                    var body = JSON.parse(error._body);
+                                    this.alertMessage = body.message;
+                                    console.log(error);
+                                }
+                            }
+                        )
+
+
                 }
             },
             error => {
@@ -94,4 +115,10 @@ export class ArtistEditComponent implements OnInit {
             }
         );
     }
+
+    fileChangeEvent(fileInput: any) {
+        this.files_to_upload = <Array<File>>fileInput.target.files;
+        console.log(this.files_to_upload);
+    }
+
 }

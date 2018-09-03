@@ -3,6 +3,9 @@
 
 # Uploads archives
 *.jpeg
+*.JPEG
 *.jpg
+*.JPG
 *.png
+*.PNG
 *.mp3

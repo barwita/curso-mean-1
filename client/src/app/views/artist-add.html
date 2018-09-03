@@ -1,4 +1,4 @@
-<div class="head-page col-lg-6" *ngIf="identity">
+<div class="head-page col-lg-6" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
   <h1>{{titulo}}</h1>
 
   <form class="col-md-8" #formArtist="ngForm" (ngSubmit)="onSubmit()">
@@ -17,8 +17,8 @@
       </span>
     </p>
     <div *ngIf="is_edit">
-      <div class="image-for-edit" *ngIf="artist.image != 'null'">
-        <img src="{{ url + 'get-image-artist/' + artist.image }}" />
+      <div class="artist-image-for-edit" *ngIf="artist.image != 'null'">
+        <img class="artist-image-for-edit" src="{{ url + 'get-image-artist/' + artist.image }}" />
       </div>
       <p>
         <label>Sube la imagen del artista:</label>
@@ -35,4 +35,9 @@
       </div>
     </div>
   </form>
+</div>
+
+<div class="head-page col-lg-6" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+  <h1>Error</h1>
+  <p>No tienes permisos para crear o editar artistas. Debes estar logueado como administrador.</p>
 </div>

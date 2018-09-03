@@ -74,3 +74,7 @@ html, body{
     font-style: italic;
     color: #b2bd99;
 }
+
+.artist-image-for-edit{
+    width: 150px;
+}
