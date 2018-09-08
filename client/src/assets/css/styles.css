@@ -4,6 +4,12 @@ html, body{
     background: #eee;
 }
 
+.central{
+    height: 100%;
+    overflow: scroll;
+    
+}
+
 .head-title{
     font-size: 20px;
     font-weight: bold;
@@ -115,4 +121,16 @@ html, body{
 
 .artist-item .artist-name a{
     color: white;
+}
+
+.artist-head-card .image{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    float: left;
+    margin-right: 30px;
+}
+
+.artist-head-card .image .img{
+    height: 150px;
 }
