@@ -1,0 +1,50 @@
+<div class="head-page col-lg-6" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+    <h1>{{titulo}}</h1>
+  
+    <form class="col-md-8" #formAlbum="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        <label>Título:</label>
+        <input type="text" #title="ngModel" name="title" [(ngModel)]="album.title" required class="form-control" />
+        <span *ngIf="!title.valid && title.touched">
+          El título es obligatorio
+        </span>
+      </p>
+      <p>
+        <label>Descripción:</label>
+        <textarea class="form-control" type="textarea" #description="ngModel" name="description" [(ngModel)]="album.description"></textarea>
+        <span *ngIf="!description.valid && description.touched">
+          La descripción es obligatoria
+        </span>
+      </p>
+      <p>
+        <label>Año:</label>
+        <input type="text" #year="ngModel" name="year" [(ngModel)]="album.year" required class="form-control" />
+        <span *ngIf="!year.valid && year.touched">
+          El año es obligatorio
+        </span>
+      </p>
+      <div *ngIf="is_edit">
+        <div class="artist-image-for-edit" *ngIf="artist.image != 'null'">
+          <img class="artist-image-for-edit" src="{{ url + 'get-image-artist/' + artist.image }}" />
+        </div>
+        <p>
+          <label>Sube la imagen del album:</label>
+          <input type="file" name="file" id="" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+        </p>
+      </div>
+      <br>
+      <input *ngIf="!is_edit" class="btn btn-success" type="submit" value="Crear nuevo album" [disabled]="!formAlbum.form.valid" />
+      <input *ngIf="is_edit" class="btn btn-success" type="submit" value="Actualizar album" [disabled]="!formAlbum.form.valid" />
+      <div *ngIf="alertMessage">
+        <br />
+        <div class="alert alert-danger" role="alert">
+          <p>{{alertMessage}}</p>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div class="head-page col-lg-6" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+    <h1>Error</h1>
+    <p>No tienes permisos para crear o editar artistas. Debes estar logueado como administrador.</p>
+  </div>

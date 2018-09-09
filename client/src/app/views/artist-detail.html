@@ -9,7 +9,7 @@
             <p class="artist-description">
                 {{artist.description}}
             </p>
-            <a *ngIf="identity.role == 'ROLE_ADMIN'" class="btn btn-default">
+            <a [routerLink]="['/add-album', artist._id]" *ngIf="identity.role == 'ROLE_ADMIN'" class="btn btn-default">
                 Añadir album
             </a>
             <div class="clearfix"></div>
