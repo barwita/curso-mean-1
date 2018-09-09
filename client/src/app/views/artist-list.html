@@ -27,7 +27,11 @@
                 </a>
                 <div class="buttons mx-auto" *ngIf="identity.role == 'ROLE_ADMIN'">
                     <a class="btn btn-sm btn-warning" [routerLink]="['/edit-artist', artist._id]">Editar</a>
-                    <a class="btn btn-sm btn-danger" [routerLink]="['/edit-artist', artist._id]">Eliminar</a>
+                    <a class="btn btn-sm btn-danger" (click)="onDeleteConfirm(artist._id)">Eliminar</a>
+                </div>
+                <div class="seguro" *ngIf="confirmado == artist._id">
+                    <a class="btn btn-sm btn-primary" (click)="onCancelArtist()">Cancelar</a>
+                    <a class="btn btn-sm btn-danger" (click)="onDeleteArtist(artist._id)">Eliminar</a>
                 </div>
             </div>
         </li>
