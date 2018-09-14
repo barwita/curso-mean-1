@@ -14,6 +14,36 @@ export class AlbumService {
         this.url = GLOBAL.url;
     }
 
+    getAlbums(token, aritstId = null){
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        let options = new RequestOptions({ headers: headers });
+
+        if(aritstId == null){
+            //Sacamos listado de todos los artistas
+            return this._http.get(this.url + 'albums/', options)
+            .map(res => res.json());
+        }else{
+            return this._http.get(this.url + 'albums/' + aritstId, options)
+            .map(res => res.json());
+        }
+    }
+
+    getAlbum(token, id: string) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.url + 'album/' + id, options)
+            .map(res => res.json());
+
+    }
+
     addAlbum(token, album: Album) {
         let params = JSON.stringify(album);
         let headers = new Headers({
@@ -24,6 +54,14 @@ export class AlbumService {
             .map(res => res.json());
     }
 
-    
+    editAlbum(token, id: string, album: Album) {
+        let params = JSON.stringify(album);
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+        return this._http.put(this.url + 'album/'+id, params, { headers: headers })
+            .map(res => res.json());
+    }
 
 }

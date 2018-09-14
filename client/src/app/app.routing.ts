@@ -15,6 +15,7 @@ import { ArtistDetailComponent } from './components/artist-detail.component';
 
 // Importar componentes album
 import { AlbumAddComponent } from './components/album-add.component';
+import { AlbumEditComponent } from './components/album-edit.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     {path: 'edit-artist/:id', component: ArtistEditComponent},
     {path: 'artist/:id', component: ArtistDetailComponent},
     {path: 'add-album/:artist', component: AlbumAddComponent},
+    {path: 'edit-album/:id', component: AlbumEditComponent},
     {path: '**', component: HomeComponent}
 ];
 

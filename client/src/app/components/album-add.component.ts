@@ -26,7 +26,6 @@ export class AlbumAddComponent implements OnInit {
     public token;
     public url: string;
     public alertMessage: string;
-    public is_edit: boolean;
     
 
     constructor(
@@ -46,9 +45,6 @@ export class AlbumAddComponent implements OnInit {
 
     ngOnInit() {
         console.log('artist-add-component cargado correctamente...');
-
-        this.is_edit = false;
-
     }
 
     onSubmit() {
@@ -66,7 +62,7 @@ export class AlbumAddComponent implements OnInit {
                 }else{
                     this.album = response.album;
                     this.alertMessage = 'El album se ha creado correctamente';
-                    //this._router.navigate(['edit-album/'+response.album._id]);
+                    this._router.navigate(['edit-album/'+response.album._id]);
                 }
             },
             error => {
