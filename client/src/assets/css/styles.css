@@ -1,3 +1,4 @@
+/*GLOBAL*/
 html, body{
     margin: 0px;
     height: 100%;
@@ -17,6 +18,7 @@ html, body{
     height: 40px;
 }
 
+/*BARRA LATERAL*/
 .head-title{
     font-size: 20px;
     font-weight: bold;
@@ -92,14 +94,17 @@ html, body{
     width: 150px;
 }
 
-.artists-list{
+/*ARTISTAS Y ALBUMS*/
+.artists-list,
+.album-list{
     margin: 0px;
     padding: 0px;
     margin-top: 30px;
     list-style: none;
 }
 
-.artist-item{
+.artist-item,
+.album-item{
     width: 23%;
     margin: 0px;
     padding: 0px;
@@ -109,24 +114,28 @@ html, body{
     margin-top: 20px;
 }
 
-.artist-item .artist-image{
+.artist-item .artist-image,
+.album-item .album-image{
     height: 254px;
     width: 100%;
     overflow: hidden;
 }
 
-.artist-item .artist-image img{
+.artist-item .artist-image img,
+.album-item .album-image img{
     height: 100%;
     background: black;
 }
 
-.artist-item .artist-name{
+.artist-item .artist-name,
+.album-item .album-name{
     color: white;
     padding: 10px;
     background: #222326;
 }
 
-.artist-item .artist-name a{
+.artist-item .artist-name a,
+.album-item .album-name a{
     color: white;
 }
 

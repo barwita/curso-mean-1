@@ -51,7 +51,7 @@ function getAlbum(req, res){
             if(!album){
                 res.status(404).send({message: 'El album no existe'});
             }else{
-                res.status(200).send(album);
+                res.status(200).send({album: album});
             }
         }
     });
