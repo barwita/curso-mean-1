@@ -32,14 +32,14 @@
                                 </a>
                             </p>
                             <div class="buttons mx-auto" *ngIf="identity.role == 'ROLE_ADMIN'">
-                                <a class="btn btn-sm btn-warning" [routerLink]="['/edit-album', album._id]">Editar</a>
-                                <a class="btn btn-sm btn-danger" (click)="onDeleteConfirm(album._id)">Eliminar</a>
+                                <a class="btn btn-sm btn-warning btn-with-margin" [routerLink]="['/edit-album', album._id]">Editar</a>
+                                <a class="btn btn-sm btn-danger btn-with-margin" (click)="onDeleteConfirm(album._id)">Eliminar</a>
                             </div>
                         </div>
 
-                        <div class="seguro" *ngIf="confirmado == album._id">
-                            <a class="btn btn-sm btn-primary" (click)="onCancelAlbum()">Cancelar</a>
-                            <a class="btn btn-sm btn-danger" (click)="onDeleteAlbum(artist._id)">Eliminar</a>
+                        <div class="seguro-album" *ngIf="confirmado == album._id">
+                            <a class="btn btn-sm btn-primary btn-with-margin" (click)="onCancelAlbum()">Cancelar</a>
+                            <a class="btn btn-sm btn-danger btn-with-margin" (click)="onDeleteAlbum(album._id)">Eliminar</a>
                         </div>
                     </li>
                 </ul>

@@ -26,12 +26,12 @@
                     {{artist.name}}
                 </a>
                 <div class="buttons mx-auto" *ngIf="identity.role == 'ROLE_ADMIN'">
-                    <a class="btn btn-sm btn-warning" [routerLink]="['/edit-artist', artist._id]">Editar</a>
-                    <a class="btn btn-sm btn-danger" (click)="onDeleteConfirm(artist._id)">Eliminar</a>
+                    <a class="btn btn-sm btn-warning btn-with-margin" [routerLink]="['/edit-artist', artist._id]">Editar</a>
+                    <a class="btn btn-sm btn-danger btn-with-margin" (click)="onDeleteConfirm(artist._id)">Eliminar</a>
                 </div>
-                <div class="seguro" *ngIf="confirmado == artist._id">
-                    <a class="btn btn-sm btn-primary" (click)="onCancelArtist()">Cancelar</a>
-                    <a class="btn btn-sm btn-danger" (click)="onDeleteArtist(artist._id)">Eliminar</a>
+                <div class="seguro-artist" *ngIf="confirmado == artist._id">
+                    <a class="btn btn-sm btn-primary btn-with-margin" (click)="onCancelArtist()">Cancelar</a>
+                    <a class="btn btn-sm btn-danger btn-with-margin" (click)="onDeleteArtist(artist._id)">Eliminar</a>
                 </div>
             </div>
         </li>
