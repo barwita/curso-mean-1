@@ -108,10 +108,14 @@ html, body{
     width: 23%;
     margin: 0px;
     padding: 0px;
-    height: 317px;
+    height: 326px;
     border: 1px solid #444;
     margin-left: 20px;
     margin-top: 20px;
+}
+
+.album-item{
+    height: 365px;
 }
 
 .artist-item .artist-image,
@@ -119,12 +123,12 @@ html, body{
     height: 254px;
     width: 100%;
     overflow: hidden;
+    background: black;
 }
 
 .artist-item .artist-image img,
 .album-item .album-image img{
     height: 100%;
-    background: black;
 }
 
 .artist-item .artist-name,
