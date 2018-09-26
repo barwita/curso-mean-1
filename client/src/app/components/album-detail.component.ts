@@ -20,12 +20,11 @@ import { Album } from '../models/album';
 
 export class AlbumDetailComponent implements OnInit {
     public titulo: string;
-    public artist: Artist;
+    public album: Album;
     public identity;
     public token;
     public url: string;
-    public artist_id: string;
-    public albums: Album[];
+    public album_id: string;
     public alertMessage: string;
 
     constructor(
@@ -44,5 +43,54 @@ export class AlbumDetailComponent implements OnInit {
 
     ngOnInit() {
         console.log('album-detail-component cargado correctamente...');
+
+        // Sacar album de la base de datos
+        this.getAlbum();
+    }
+
+    getAlbum() {
+        this._route.params.forEach((params: Params) => {
+            this.album_id = params['id'];
+            this._albumService.getAlbum(this.token, this.album_id).subscribe(
+                response => {
+                    if (!response.album) {
+                        //this._router.navigate(['/']);
+                    } else {
+                        this.album = response.album;
+                        console.log(this.album);
+
+                        /*
+                        // Sacar los songs del album
+                        this._albumService.getAlbums(this.token, this.album_id).subscribe(
+                            response => {
+                                if (!response.albums) {
+                                    this.alertMessage = 'Este artista no tiene albums'
+                                } else {
+                                    console.log(response.albums);
+                                    this.albums = response.albums;
+                                }
+                            },
+                            error => {
+                                var alertMessage = <any>error;
+                                if (alertMessage != null) {
+                                    var body = JSON.parse(error._body);
+                                    //this.alertMessage = body.message;
+                                    console.log(error);
+                                }
+                            }
+                        )
+                        */
+                    }
+                },
+                error => {
+                    var alertMessage = <any>error;
+                    if (alertMessage != null) {
+                        var body = JSON.parse(error._body);
+                        //this.alertMessage = body.message;
+                        console.log(error);
+                    }
+                }
+            )
+        });
     }
 }

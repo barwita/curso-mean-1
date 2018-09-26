@@ -1,0 +1,49 @@
+<div class="head-page col-lg-6" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+    <h1>{{titulo}}</h1>
+    <form class="col-md-8" #formSong="ngForm" (ngSubmit)="onSubmit()">
+        <p>
+            <label>Número de pista:</label>
+            <input type="text" #number="ngModel" name="number" [(ngModel)]="song.number" required class="form-control" />
+            <span *ngIf="!number.valid && number.touched">
+                El numero es obligatorio
+            </span>
+        </p>
+        <p>
+            <label>Nombre:</label>
+            <input class="form-control" type="text" #name="ngModel" name="name" [(ngModel)]="song.name" />
+            <span *ngIf="!name.valid && name.touched">
+                La nombre es obligatorio
+            </span>
+        </p>
+        <p>
+            <label>Duración:</label>
+            <input type="text" #duration="ngModel" name="duration" [(ngModel)]="song.year" required class="form-control" />
+            <span *ngIf="!duration.valid && duration.touched">
+                La duración es obligatoria
+            </span>
+        </p>
+        <div *ngIf="is_edit">
+            <div class="artist-image-for-edit" *ngIf="album.image != 'null'">
+                <img class="artist-image-for-edit" src="{{ url + 'get-image-album/' + album.image }}" />
+            </div>
+            <p>
+                <label>Sube la imagen del album:</label>
+                <input type="file" name="file" id="" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+            </p>
+        </div>
+        <br>
+        <input *ngIf="!is_edit" class="btn btn-success" type="submit" value="Añadir canción" [disabled]="!formSong.form.valid" />
+        <input *ngIf="is_edit" class="btn btn-success" type="submit" value="Actualizar canción" [disabled]="!formSong.form.valid" />
+        <div *ngIf="alertMessage">
+            <br />
+            <div class="alert alert-danger" role="alert">
+                <p>{{alertMessage}}</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="head-page col-lg-6" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+    <h1>Error</h1>
+    <p>No tienes permisos para crear o editar artistas. Debes estar logueado como administrador.</p>
+</div>
