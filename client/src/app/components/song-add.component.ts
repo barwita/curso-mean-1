@@ -6,6 +6,7 @@ import { AlbumService } from '../services/album.service';
 import { UploadService } from '../services/upload.service';
 import { GLOBAL } from '../services/global';
 import { Song } from '../models/song';
+import { SongService } from '../services/song.service';
 
 @Component({
     selector: 'song-add',
@@ -13,7 +14,8 @@ import { Song } from '../models/song';
     providers: [
         UserService,
         AlbumService,
-        UploadService
+        UploadService,
+        SongService
     ]
 })
 
@@ -31,7 +33,8 @@ export class SongAddComponent implements OnInit {
         private _router: Router,
         private _userService: UserService,
         private _albumService: AlbumService,
-        private _uploadService: UploadService
+        private _uploadService: UploadService,
+        private _songService: SongService
     ) {
         this.titulo = 'Crear nueva canción';
         this.identity = this._userService.getIdentity();
@@ -46,22 +49,22 @@ export class SongAddComponent implements OnInit {
         console.log(this.titulo);
     }
 
-    /*onSubmit() {
-        // Cazamos el parametro 'artist._id' que nos viene como parametro por url
+    onSubmit() {
+        // Cazamos el parametro 'album._id' que nos viene como parametro por url
         this._route.params.forEach((params: Params) => {
-            let artist_id = params['artist'];
-            this.album.artist = artist_id;
+            let album_id = params['album'];
+            this.song.album = album_id;
 
-            console.log(this.album);
+            console.log(this.song);
 
-        this._albumService.addAlbum(this.token, this.album).subscribe(
+        this._songService.addSong(this.token, this.song).subscribe(
             response => {
-                if(!response.album) {
+                if(!response.song) {
                     this.alertMessage = 'Error en el servidor';
                 }else{
-                    this.album = response.album;
-                    this.alertMessage = 'El album se ha creado correctamente';
-                    this._router.navigate(['edit-album/'+response.album._id]);
+                    this.song = response.song;
+                    this.alertMessage = 'La canción se ha creado correctamente';
+                    //this._router.navigate(['edit-album/'+response.album._id]);
                 }
             },
             error => {
@@ -75,6 +78,6 @@ export class SongAddComponent implements OnInit {
             }
         );
         });
+        
     }
-    */
 }

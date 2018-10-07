@@ -9,7 +9,7 @@
             </span>
         </p>
         <p>
-            <label>Nombre:</label>
+            <label>Título:</label>
             <input class="form-control" type="text" #name="ngModel" name="name" [(ngModel)]="song.name" />
             <span *ngIf="!name.valid && name.touched">
                 La nombre es obligatorio
@@ -17,7 +17,7 @@
         </p>
         <p>
             <label>Duración:</label>
-            <input type="text" #duration="ngModel" name="duration" [(ngModel)]="song.year" required class="form-control" />
+            <input type="text" #duration="ngModel" name="duration" [(ngModel)]="song.duration" required class="form-control" />
             <span *ngIf="!duration.valid && duration.touched">
                 La duración es obligatoria
             </span>
