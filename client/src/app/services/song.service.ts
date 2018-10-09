@@ -42,40 +42,38 @@ export class SongService {
             .map(res => res.json());
         }
     }
-
-    getAlbum(token, id: string) {
+*/
+    getSong(token, id: string) {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': token
         });
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.get(this.url + 'album/' + id, options)
+        return this._http.get(this.url + 'song/' + id, options)
             .map(res => res.json());
 
     }
 
-    editAlbum(token, id: string, album: Album) {
-        let params = JSON.stringify(album);
+    editSong(token, id: string, song: Song) {
+        let params = JSON.stringify(song);
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': token
         });
-        return this._http.put(this.url + 'album/'+id, params, { headers: headers })
+        return this._http.put(this.url + 'song/'+id, params, { headers: headers })
             .map(res => res.json());
     }
 
-    deleteAlbum(token, id: string) {
+    deleteSong(token, id: string) {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': token
         });
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.delete(this.url + 'album/' + id, options)
+        return this._http.delete(this.url + 'song/' + id, options)
             .map(res => res.json());
 
     }
-    */
-
 }
